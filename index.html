@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Panel de Control</title>
+  <link rel="stylesheet" href="styles.css">
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body>
+
+  <!-- Overlay para móviles -->
+  <div id="overlay" class="overlay"></div>
+
+  <div class="app-container">
+    
+    <!-- SIDEBAR -->
+    <aside id="sidebar" class="sidebar">
+      <!-- Logo / Branding -->
+      <div class="brand">
+        <i data-lucide="layout-dashboard" class="brand-icon"></i>
+        <span class="brand-name">Sistema Demo</span>
+      </div>
+
+      <!-- Navegación con Submenús -->
+      <nav class="nav-menu">
+        
+        <!-- CATÁLOGOS -->
+        <div class="nav-group open">
+          <button class="nav-dropdown-btn" onclick="toggleDropdown(this)">
+            <div class="btn-left">
+              <i data-lucide="folder-tree"></i>
+              <span>Catálogos</span>
+            </div>
+            <i data-lucide="chevron-down" class="chevron-icon"></i>
+          </button>
+          <div class="submenu">
+            <a href="#" class="submenu-item active" onclick="selectSubmenu(this, 'Placas', 'Catálogos')">
+              <i data-lucide="layers"></i>
+              <span>Placas</span>
+            </a>
+            <a href="#" class="submenu-item" onclick="selectSubmenu(this, 'Tipo de Punto', 'Catálogos')">
+              <i data-lucide="disc"></i>
+              <span>Tipo de Punto</span>
+            </a>
+          </div>
+        </div>
+
+        <!-- OPERACIONES -->
+        <div class="nav-group">
+          <button class="nav-dropdown-btn" onclick="toggleDropdown(this)">
+            <div class="btn-left">
+              <i data-lucide="sliders"></i>
+              <span>Operaciones</span>
+            </div>
+            <i data-lucide="chevron-down" class="chevron-icon"></i>
+          </button>
+          <div class="submenu">
+            <a href="#" class="submenu-item" onclick="selectSubmenu(this, 'Pedidos', 'Operaciones')">
+              <i data-lucide="printer"></i>
+              <span>Pedidos</span>
+            </a>
+            <a href="#" class="submenu-item" onclick="selectSubmenu(this, 'Orden de Trabajo', 'Operaciones')">
+              <i data-lucide="settings"></i>
+              <span>Orden de Trabajo</span>
+            </a>
+            <a href="#" class="submenu-item" onclick="selectSubmenu(this, 'Proceso', 'Operaciones')">
+              <i data-lucide="hourglass"></i>
+              <span>Proceso</span>
+            </a>
+            <a href="#" class="submenu-item" onclick="selectSubmenu(this, 'Terminadas', 'Operaciones')">
+              <i data-lucide="check-circle-2"></i>
+              <span>Terminadas</span>
+            </a>
+          </div>
+        </div>
+
+        <!-- REPORTES -->
+        <div class="nav-group">
+          <button class="nav-dropdown-btn" onclick="toggleDropdown(this)">
+            <div class="btn-left">
+              <i data-lucide="bar-chart-3"></i>
+              <span>Reportes</span>
+            </div>
+            <i data-lucide="chevron-down" class="chevron-icon"></i>
+          </button>
+          <div class="submenu">
+            <a href="#" class="submenu-item" onclick="selectSubmenu(this, 'Pedidos', 'Reportes')">
+              <i data-lucide="printer"></i>
+              <span>Pedidos</span>
+            </a>
+            <a href="#" class="submenu-item" onclick="selectSubmenu(this, 'Pedidos Cliente', 'Reportes')">
+              <i data-lucide="file-text"></i>
+              <span>Pedidos Cliente</span>
+            </a>
+          </div>
+        </div>
+
+        <!-- SEGURIDAD -->
+        <div class="nav-group">
+          <button class="nav-dropdown-btn" onclick="toggleDropdown(this)">
+            <div class="btn-left">
+              <i data-lucide="shield-check"></i>
+              <span>Seguridad</span>
+            </div>
+            <i data-lucide="chevron-down" class="chevron-icon"></i>
+          </button>
+          <div class="submenu">
+            <a href="#" class="submenu-item" onclick="selectSubmenu(this, 'Usuarios', 'Seguridad')">
+              <i data-lucide="users"></i>
+              <span>Usuarios</span>
+            </a>
+            <a href="#" class="submenu-item" onclick="selectSubmenu(this, 'Permisos', 'Seguridad')">
+              <i data-lucide="key-round"></i>
+              <span>Permisos</span>
+            </a>
+          </div>
+        </div>
+
+        <!-- SESIÓN -->
+        <div class="nav-group">
+          <button class="nav-dropdown-btn" onclick="toggleDropdown(this)">
+            <div class="btn-left">
+              <i data-lucide="log-out"></i>
+              <span>Sesión</span>
+            </div>
+            <i data-lucide="chevron-down" class="chevron-icon"></i>
+          </button>
+          <div class="submenu">
+            <a href="#" class="submenu-item" onclick="selectSubmenu(this, 'Cambiar contraseña', 'Sesión')">
+              <i data-lucide="key"></i>
+              <span>Cambiar contraseña</span>
+            </a>
+            <a href="#" class="submenu-item" onclick="selectSubmenu(this, 'Logout', 'Sesión')">
+              <i data-lucide="log-out"></i>
+              <span>Logout</span>
+            </a>
+          </div>
+        </div>
+
+      </nav>
+    </aside>
+
+    <!-- CONTENIDO PRINCIPAL -->
+    <div class="main-wrapper">
+      
+      <!-- CABECERA (HEADER) -->
+      <header class="top-header">
+        <div class="header-left">
+          <button class="mobile-toggle" onclick="toggleSidebar()">
+            <i data-lucide="menu"></i>
+          </button>
+          <h1 id="page-title" class="page-title">Catálogos &gt; Placas</h1>
+        </div>
+
+        <!-- Usuario Actual -->
+        <div class="user-profile">
+          <div class="user-info">
+            <span class="user-name">Jerry Sanchez</span>
+            <span class="user-role">Administrador</span>
+          </div>
+          <div class="user-avatar">JS</div>
+        </div>
+      </header>
+
+      <!-- ÁREA DE CONTENIDO -->
+      <main class="main-content">
+
+       <!-- BARRA DE HERRAMIENTAS -->
+      <div id="toolbar" class="toolbar">
+        <button class="btn btn-action-blue" id="btn-add" onclick="openAddModal()">
+          <i data-lucide="plus"></i>
+          <span>Agregar</span>
+        </button>
+        <button class="btn btn-action-blue" id="btn-edit" onclick="editSelected()">
+          <i data-lucide="pencil"></i>
+          <span>Editar</span>
+        </button>
+        <button class="btn btn-action-orange" id="btn-toggle-status" onclick="toggleStatusSelected()">
+          <i data-lucide="ban"></i>
+          <span>Desactivar / Activar</span>
+        </button>
+        <button class="btn btn-action-purple" id="btn-production" onclick="sendToProductionSelected()">
+          <i data-lucide="play-circle"></i>
+          <span>Producción</span>
+        </button>
+
+        <!-- NUEVOS BOTONES PARA ORDEN DE TRABAJO -->
+        <button class="btn btn-action-blue" id="btn-view" onclick="viewSelectedWorkOrder()" style="display: none;">
+          <i data-lucide="eye"></i>
+          <span>Visualizar</span>
+        </button>
+        <button class="btn btn-action-orange" id="btn-return-design" onclick="returnToDesignSelected()" style="display: none;">
+          <i data-lucide="undo-2"></i>
+          <span>Regresar a Diseño</span>
+        </button>
+        <button class="btn btn-action-blue" id="btn-print" style="display: none;">
+          <i data-lucide="printer"></i>
+          <span>Imprimir</span>
+        </button>
+
+        <button class="btn btn-action-red" id="btn-delete" onclick="deleteSelected()">
+          <i data-lucide="trash-2"></i>
+          <span>Eliminar</span>
+        </button>
+      </div>
+
+        <!-- TARJETA CONTENEDORA DE PLACAS -->
+        <div id="card-plates" class="card">
+          <div class="card-header">
+            <div>
+              <h2>Módulo: Placas</h2>
+              <p>Gestión e inventario de placas del catálogo.</p>
+            </div>
+            <div class="search-box">
+              <i data-lucide="search" class="search-icon"></i>
+              <input type="text" id="searchInputPlates" placeholder="Buscar placa..." onkeyup="filterTable('plates')">
+            </div>
+          </div>
+
+          <div class="table-container">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th style="width: 40px;"></th>
+                  <th>SKU</th>
+                  <th>Nombre</th>
+                  <th>Descripción</th>
+                  <th>Estado</th>
+                </tr>
+              </thead>
+              <tbody id="platesTableBody">
+                <!-- Dinámico -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- TARJETA CONTENEDORA DE TIPO DE PUNTO -->
+        <div id="card-dotTypes" class="card" style="display: none;">
+          <div class="card-header">
+            <div>
+              <h2>Módulo: Tipo de Punto</h2>
+              <p>Gestión del catálogo de tipos de punto / tramas.</p>
+            </div>
+            <div class="search-box">
+              <i data-lucide="search" class="search-icon"></i>
+              <input type="text" id="searchInputDotTypes" placeholder="Buscar tipo de punto..." onkeyup="filterTable('dotTypes')">
+            </div>
+          </div>
+
+          <div class="table-container">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th style="width: 40px;"></th>
+                  <th>Código</th>
+                  <th>Nombre / Tipo</th>
+                  <th>Descripción</th>
+                  <th>Estado</th>
+                </tr>
+              </thead>
+              <tbody id="dotTypesTableBody">
+                <!-- Dinámico -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- TARJETA CONTENEDORA DE PEDIDOS -->
+        <div id="card-orders" class="card" style="display: none;">
+          <div class="card-header">
+            <div>
+              <h2>Módulo: Pedidos</h2>
+              <p>Creación, modificación y flujo de producción de pedidos.</p>
+            </div>
+            <div class="search-box">
+              <i data-lucide="search" class="search-icon"></i>
+              <input type="text" id="searchInputOrders" placeholder="Buscar pedido..." onkeyup="filterTable('orders')">
+            </div>
+          </div>
+
+          <div class="table-container">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th style="width: 40px;"></th>
+                  <th>OT</th>
+                  <th>Cliente</th>
+                  <th>Placa / Punto</th>
+                  <th>Medidas (X x Y)</th>
+                  <th>Prioridad</th>
+                  <th>Estatus</th>
+                </tr>
+              </thead>
+              <tbody id="ordersTableBody">
+                <!-- Se llena dinámicamente con JS -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- TARJETA CONTENEDORA DE ÓRDENES DE TRABAJO (PRODUCCIÓN) -->
+        <div id="card-workOrders" class="card" style="display: none;">
+          <div class="card-header">
+            <div>
+              <h2>Módulo: Orden de Trabajo</h2>
+              <p>Pedidos enviados a cola de producción y estado de fabricación.</p>
+            </div>
+            <div class="search-box">
+              <i data-lucide="search" class="search-icon"></i>
+              <input type="text" id="searchInputWorkOrders" placeholder="Buscar OT..." onkeyup="filterTable('workOrders')">
+            </div>
+          </div>
+
+          <div class="table-container">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th style="width: 40px;"></th>
+                  <th>OT</th>
+                  <th>Cliente</th>
+                  <th>Placa / Punto</th>
+                  <th>Medidas (X x Y)</th>
+                  <th>Prioridad</th>
+                  <th>Estatus</th>
+                </tr>
+              </thead>
+              <tbody id="workOrdersTableBody">
+                <!-- Se llena dinámicamente con las OTs en Producción -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- TARJETA GENÉRICA PARA OTROS MÓDULOS -->
+        <div id="card-generic" class="card" style="display: none;">
+          <div class="card-header">
+            <div>
+              <h2 id="content-heading">Módulo</h2>
+              <p id="content-description">Descripción del módulo.</p>
+            </div>
+          </div>
+          <div style="padding: 20px 0; text-align: center; color: #64748b;">
+            Sección en desarrollo...
+          </div>
+        </div>
+      </main>
+    </div>
+  </div>
+
+
+  <!-- MODAL DE FORMULARIO -->
+  <div id="modalOverlay" class="modal-overlay">
+    <div class="modal" style="max-width: 620px; width: 90%;">
+      <div class="modal-header">
+        <h3 id="modalTitle">Nuevo Registro</h3>
+        <button class="btn-close" type="button" onclick="closeModal()"><i data-lucide="x"></i></button>
+      </div>
+      <form id="itemForm" onsubmit="saveItem(event)">
+        <div class="modal-body" style="max-height: 80vh; overflow-y: auto;">
+          <input type="hidden" id="itemIndex">
+          
+          <!-- CAMPOS DE CATÁLOGOS (Placas / Tipo de Punto) -->
+          <div id="fields-catalog">
+            <div class="form-group">
+              <label for="itemCode" id="lblCode">SKU / Código</label>
+              <input type="text" id="itemCode" placeholder="Ej. PLC-001">
+            </div>
+            <div class="form-group" style="margin-top: 12px;">
+              <label for="itemName" id="lblName">Nombre</label>
+              <input type="text" id="itemName" placeholder="Ej. Nombre del elemento">
+            </div>
+            <div class="form-group" style="margin-top: 12px;">
+              <label for="itemDescription">Descripción</label>
+              <input type="text" id="itemDescription" placeholder="Ej. Descripción detallada">
+            </div>
+          </div>
+
+          <!-- CAMPOS DE PEDIDOS -->
+          <div id="fields-orders" style="display: none;">
+            <!-- FILA 1: OT Y PRIORIDAD -->
+            <div class="form-row" style="display: flex; gap: 12px;">
+              <div class="form-group" style="flex: 1;">
+                <label for="orderOt">Orden de Trabajo (OT)</label>
+                <input type="text" id="orderOt" placeholder="Ej. OT-2026-001">
+              </div>
+              <div class="form-group" style="flex: 1;">
+                <label for="orderPriority">Prioridad</label>
+                <select id="orderPriority" style="width: 100%; padding: 8px 10px; border: 1px solid #d1d5db; border-radius: 6px; font-size: 0.85rem;">
+                  <option value="Normal">Normal</option>
+                  <option value="Alta">Alta</option>
+                  <option value="Urgente">Urgente</option>
+                </select>
+              </div>
+            </div>
+
+            <!-- FILA 2: USUARIO Y CLIENTE -->
+            <div class="form-row" style="display: flex; gap: 12px; margin-top: 12px;">
+              <div class="form-group" style="flex: 1;">
+                <label for="orderUser">Nombre de Usuario</label>
+                <input type="text" id="orderUser" value="Jerry Sanchez" disabled readonly style="background-color: #f1f5f9; cursor: not-allowed; width: 100%;">
+              </div>
+              <div class="form-group" style="flex: 1;">
+                <label for="orderClient">Cliente</label>
+                <input type="text" id="orderClient" placeholder="Ej. Empaques del Norte" style="width: 100%;">
+              </div>
+            </div>
+
+            <!-- FILA 3: PLACA, PUNTO E IMPRESIÓN (3 CASILLAS DEL MISMO TAMAÑO) -->
+            <div class="form-row" style="display: flex; gap: 12px; margin-top: 12px;">
+              <div class="form-group" style="flex: 1; min-width: 0;">
+                <label for="orderPlate">Tipo de Placa</label>
+                <select id="orderPlate" style="width: 100%; padding: 8px 10px; border: 1px solid #d1d5db; border-radius: 6px; font-size: 0.85rem;"></select>
+              </div>
+              <div class="form-group" style="flex: 1; min-width: 0;">
+                <label for="orderDotType">Tipo de Punto</label>
+                <select id="orderDotType" style="width: 100%; padding: 8px 10px; border: 1px solid #d1d5db; border-radius: 6px; font-size: 0.85rem;"></select>
+              </div>
+              <div class="form-group" style="flex: 1; min-width: 0;">
+                <label for="orderPrintType">Impresión</label>
+                <select id="orderPrintType" style="width: 100%; padding: 8px 10px; border: 1px solid #d1d5db; border-radius: 6px; font-size: 0.85rem;">
+                  <option value="Frente">Frente</option>
+                  <option value="Reverso">Reverso</option>
+                </select>
+              </div>
+            </div>
+
+            <!-- FILA 4: ARCHIVO INTERNO LARGO + MEDIDAS COMPACTAS -->
+            <div class="form-row" style="display: flex; gap: 12px; margin-top: 12px; align-items: flex-end;">
+              <div class="form-group" style="flex: 1; min-width: 0;">
+                <label for="orderFile">Archivo Interno</label>
+                <input type="text" id="orderFile" placeholder="Ej. 73084 ETIGESSA ET0407 MAN" style="width: 100%;">
+              </div>
+              <div class="form-group" style="width: 70px; flex-shrink: 0;">
+                <label for="orderMeasureX">Med. X</label>
+                <input type="number" id="orderMeasureX" maxlength="4" placeholder="mm" style="width: 100%; padding: 8px 4px; text-align: center;" oninput="if(this.value.length > 4) this.value = this.value.slice(0,4);">
+              </div>
+              <div class="form-group" style="width: 70px; flex-shrink: 0;">
+                <label for="orderMeasureY">Med. Y</label>
+                <input type="number" id="orderMeasureY" maxlength="4" placeholder="mm" style="width: 100%; padding: 8px 4px; text-align: center;" oninput="if(this.value.length > 4) this.value = this.value.slice(0,4);">
+              </div>
+            </div>
+
+            <!-- SUB-SECCIÓN DE PLACAS Y COLORES PARA PRODUCCIÓN -->
+            <div style="margin-top: 16px; padding: 12px; background-color: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; box-sizing: border-box; width: 100%;">
+              <label style="font-size: 0.8rem; font-weight: 700; color: #1e293b; margin-bottom: 8px; display: block;">Detalle de Placas / Colores para Producción</label>
+              
+              <div style="display: flex; gap: 8px; align-items: flex-end; width: 100%; box-sizing: border-box;">
+                <div class="form-group" style="flex: 2; min-width: 0;">
+                  <label style="font-size: 0.75rem;">Color</label>
+                  <input type="text" id="plateColor" placeholder="Ej. Cyan, Cyan C" style="width: 100%; box-sizing: border-box;">
+                </div>
+                <div class="form-group" style="flex: 1; min-width: 0;">
+                  <label style="font-size: 0.75rem;">LPI</label>
+                  <input type="text" id="plateLpi" placeholder="Ej. 150" style="width: 100%; box-sizing: border-box;">
+                </div>
+                <div class="form-group" style="flex: 1; min-width: 0;">
+                  <label style="font-size: 0.75rem;">Ángulo</label>
+                  <input type="text" id="plateAngle" placeholder="Ej. 75°" style="width: 100%; box-sizing: border-box;">
+                </div>
+                <div class="form-group" style="flex: 1; min-width: 0;">
+                  <label style="font-size: 0.75rem;">Punto</label>
+                  <input type="text" id="plateDot" placeholder="Ej. Redondo" style="width: 100%; box-sizing: border-box;">
+                </div>
+                <button type="button" class="btn btn-action-blue" onclick="addPlateItem()" style="padding: 8px 12px; height: 35px; flex-shrink: 0;">
+                  <i data-lucide="plus"></i>
+                </button>
+              </div>
+
+              <!-- TABLA DINÁMICA DE PLACAS AGREGADAS -->
+              <div style="margin-top: 10px; max-height: 120px; overflow-y: auto; width: 100%;">
+                <table class="data-table" style="font-size: 0.8rem; width: 100%;">
+                  <thead>
+                    <tr>
+                      <th>Color</th>
+                      <th>LPI</th>
+                      <th>Ángulo</th>
+                      <th>Punto</th>
+                      <th style="width: 30px;"></th>
+                    </tr>
+                  </thead>
+                  <tbody id="plateItemsTableBody">
+                    <!-- Filas dinámicas -->
+                  </tbody>
+                </table>
+              </div>
+            </div>
+
+            <div class="form-group" style="margin-top: 12px;">
+              <label for="orderObservations">Observaciones</label>
+              <input type="text" id="orderObservations" placeholder="Ej. Verificar alineación de barniz UV" style="width: 100%;">
+            </div>
+          </div>
+
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" onclick="closeModal()">Cancelar</button>
+          <button type="submit" class="btn btn-action-blue">Guardar</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- JS Externo -->
+  <script src="script.js"></script>
+</body>
+</html>
